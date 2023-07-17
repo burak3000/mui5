@@ -2,31 +2,34 @@ import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { Typography } from '@mui/material';
+import { Box, createTheme, Typography } from '@mui/material';
 import styled from '@emotion/styled';
+import Sidebar from './components/Sidebar';
+import Feed from './components/Feed';
+import Rightbar from './components/Rightbar';
+import Navbar from './components/Navbar';
+import Add from './components/Add';
+import { ThemeProvider } from '@mui/material/styles';
 
 export default function BasicButtons() {
-  const BlueButton = styled(Button)(({ theme }) => ({
-    backgroundColor: theme.palette.otherColor.main,
-    color: "#888", m: 5,
-    "&:hover": {
-      backgroundColor: "lightBlue"
+  const [mode, setMode] = React.useState("dark")
+  const darkTheme = createTheme({
+    palette: {
+      mode: mode,
     },
-    "&:disabled": {
-      backgroundColor: "gray",
-      color: "white"
-    }
-  }));
+  });
+
   return (
-    <Stack spacing={2} direction="row">
-      <Button variant="text" color='otherColor'>Text</Button>
-      <Button variant="contained" startIcon={<SettingsIcon />}>Contained</Button>
-      <Button variant="outlined" color='secondary'>Outlined</Button>
-      <Typography variant="h1" component="p">
-        It uses h1 style but it's a p tag
-      </Typography>
-      <BlueButton>My Button</BlueButton>
-      <BlueButton>Another Button</BlueButton>
-    </Stack>
+    <ThemeProvider theme={darkTheme}>
+      <Box bgcolor={"background.default"} color={"text.primary"}>
+        <Navbar></Navbar>
+        <Stack direction="row" spacing={2} justifyContent="space-between">
+          <Sidebar setMode={setMode} mode={mode}></Sidebar>
+          <Feed></Feed>
+          <Rightbar></Rightbar>
+          <Add />
+        </Stack>
+      </Box>
+    </ThemeProvider>
   );
 }
