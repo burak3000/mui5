@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from 'react';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import SettingsIcon from '@mui/icons-material/Settings';
+import { Typography } from '@mui/material';
+import styled from '@emotion/styled';
 
-function App() {
+export default function BasicButtons() {
+  const BlueButton = styled(Button)(({ theme }) => ({
+    backgroundColor: theme.palette.otherColor.main,
+    color: "#888", m: 5,
+    "&:hover": {
+      backgroundColor: "lightBlue"
+    },
+    "&:disabled": {
+      backgroundColor: "gray",
+      color: "white"
+    }
+  }));
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Stack spacing={2} direction="row">
+      <Button variant="text" color='otherColor'>Text</Button>
+      <Button variant="contained" startIcon={<SettingsIcon />}>Contained</Button>
+      <Button variant="outlined" color='secondary'>Outlined</Button>
+      <Typography variant="h1" component="p">
+        It uses h1 style but it's a p tag
+      </Typography>
+      <BlueButton>My Button</BlueButton>
+      <BlueButton>Another Button</BlueButton>
+    </Stack>
   );
 }
-
-export default App;
